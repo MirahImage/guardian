@@ -24,7 +24,7 @@ var _ = Describe("Containerd", func() {
 		runDir, err := ioutil.TempDir("", "")
 		Expect(err).NotTo(HaveOccurred())
 		containerdConfig := containerdrunner.ContainerdConfig(runDir)
-		containerdSession = containerdrunner.NewSession(runDir, containerdBinaries, containerdConfig)
+		containerdSession = containerdrunner.NewSession(runDir, containerdConfig)
 
 		config.ContainerdSocket = containerdConfig.GRPC.Address
 		client = runner.Start(config)
@@ -39,7 +39,7 @@ var _ = Describe("Containerd", func() {
 			container, err := client.Create(garden.ContainerSpec{})
 			Expect(err).NotTo(HaveOccurred())
 
-			lookupCommand := exec.Command(containerdBinaries.Ctr, "--address", config.ContainerdSocket, "--namespace", "garden", "tasks", "ps", container.Handle())
+			lookupCommand := exec.Command("ctr", "--address", config.ContainerdSocket, "--namespace", "garden", "tasks", "ps", container.Handle())
 
 			session, err := gexec.Start(lookupCommand, GinkgoWriter, GinkgoWriter)
 			Expect(err).NotTo(HaveOccurred())
@@ -85,7 +85,7 @@ var _ = Describe("Containerd", func() {
 			err := client.Destroy(container.Handle())
 			Expect(err).NotTo(HaveOccurred())
 
-			lookupCommand := exec.Command(containerdBinaries.Ctr, "--address", config.ContainerdSocket, "--namespace", "garden", "containers", "list")
+			lookupCommand := exec.Command("ctr", "--address", config.ContainerdSocket, "--namespace", "garden", "containers", "list")
 
 			session, err := gexec.Start(lookupCommand, GinkgoWriter, GinkgoWriter)
 			Expect(err).NotTo(HaveOccurred())
