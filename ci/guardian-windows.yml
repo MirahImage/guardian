@@ -2,7 +2,10 @@
 platform: windows
 
 inputs:
-- name: gr-release-develop
+- name: guardian
+  path: src/code.cloudfoundry.org/guardian
+- name: grootfs
+  path: src/code.cloudfoundry.org/grootfs
 
 run:
   path: powershell
@@ -10,4 +13,4 @@ run:
   - "-ExecutionPolicy"
   - "Bypass"
   - "-File"
-  - gr-release-develop/ci/unit-tests/guardian-windows.ps1
+  - src/code.cloudfoundry.org/guardian/ci/guardian-windows.ps1

@@ -1,20 +1,24 @@
 $ErrorActionPreference = "Stop";
 trap { $host.SetShouldExit(1) }
 
-cd gr-release-develop
-
 $env:GOPATH = $PWD
 $env:PATH = $env:GOPATH + "/bin;C:/go/bin;" + $env:PATH
 
 Write-Host "Installing Ginkgo"
-go.exe install ./src/github.com/onsi/ginkgo/ginkgo
+go.exe get github.com/onsi/ginkgo/ginkgo
 if ($LastExitCode -ne 0) {
-    throw "Ginkgo installation process returned error code: $LastExitCode"
+    throw "Ginkgo go get process returned error code: $LastExitCode"
+}
+
+go.exe install github.com/onsi/ginkgo/ginkgo
+if ($LastExitCode -ne 0) {
+    throw "Ginkgo go install process returned error code: $LastExitCode"
 }
 
 cd src/code.cloudfoundry.org/guardian
 
 go version
+# TODO make vet work
 go vet ./...
 Write-Host "compiling test process: $(date)"
 
