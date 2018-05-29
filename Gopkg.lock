@@ -2,13 +2,11 @@
 
 
 [[projects]]
-  branch = "master"
   name = "code.cloudfoundry.org/archiver"
   packages = ["extractor/test_helper"]
-  revision = "7291196139d7ff307249aef1a9febb710e413047"
+  revision = "e135af3d5a2a2c5a80d3c9b366669ac8ed18953b"
 
 [[projects]]
-  branch = "master"
   name = "code.cloudfoundry.org/clock"
   packages = [
     ".",
@@ -17,7 +15,6 @@
   revision = "02e53af36e6c978af692887ed449b74026d76fec"
 
 [[projects]]
-  branch = "master"
   name = "code.cloudfoundry.org/commandrunner"
   packages = [
     ".",
@@ -29,7 +26,6 @@
   revision = "501fd662150bcea5a42a9b5c1c283209720788c3"
 
 [[projects]]
-  branch = "master"
   name = "code.cloudfoundry.org/debugserver"
   packages = ["."]
   revision = "70715da12ee9e99858f2ba1013334776c73b6922"
@@ -52,10 +48,10 @@
   revision = "b9b9389605dafb65bf2a1d5db93019cb39fdf7cb"
 
 [[projects]]
+  branch = "master"
   name = "code.cloudfoundry.org/grootfs"
   packages = ["commands/config"]
-  revision = "e78dc6beee5bbfe1e4ea68557e85e66c1f7a3643"
-  version = "v0.30.0"
+  revision = "c01568707feaff11755a5cb03dc1cb40373af23a"
 
 [[projects]]
   branch = "master"
@@ -64,7 +60,6 @@
   revision = "bd44efed54946fc3dfd1592a7da8beb86ce4d92f"
 
 [[projects]]
-  branch = "master"
   name = "code.cloudfoundry.org/lager"
   packages = [
     ".",
@@ -75,7 +70,6 @@
   revision = "b60e04e119450552243196105bae0d42179ee0ca"
 
 [[projects]]
-  branch = "master"
   name = "code.cloudfoundry.org/localip"
   packages = ["."]
   revision = "b88ad0dea95cd41f302cf7eb6ed951efafaf47f2"
@@ -336,7 +330,6 @@
   revision = "7554cd9344cec97297fa6649b055a8c98c2a1e55"
 
 [[projects]]
-  branch = "master"
   name = "github.com/hashicorp/go-multierror"
   packages = ["."]
   revision = "b7773ae218740a7be65057fc60b366a49b538a44"
@@ -348,7 +341,6 @@
   version = "v1.4.0"
 
 [[projects]]
-  branch = "master"
   name = "github.com/kardianos/osext"
   packages = ["."]
   revision = "ae77be60afb1dcacde03767a8c37337fad28ac14"
@@ -365,13 +357,11 @@
   revision = "8b799c424f57fa123fc63a99d6383bc6e4c02578"
 
 [[projects]]
-  branch = "master"
   name = "github.com/mitchellh/copystructure"
   packages = ["."]
   revision = "d23ffcb85de31694d6ccaa23ccb4a03e55c1303f"
 
 [[projects]]
-  branch = "master"
   name = "github.com/mitchellh/go-ps"
   packages = ["."]
   revision = "4fdf99ab29366514c69ccccddab5dc58b8d84062"
@@ -383,7 +373,6 @@
   revision = "63d60e9d0dbc60cf9164e6510889b0db6683d98c"
 
 [[projects]]
-  branch = "master"
   name = "github.com/nu7hatch/gouuid"
   packages = ["."]
   revision = "179d4d0c4d8d407a32af483c2354df1d2c91e6c3"
@@ -503,7 +492,6 @@
   revision = "33e07d32887e1e06b7c025f27ce52f62c7990bc0"
 
 [[projects]]
-  branch = "master"
   name = "github.com/tedsuo/ifrit"
   packages = [
     ".",
@@ -520,7 +508,6 @@
   version = "v1.0.0"
 
 [[projects]]
-  branch = "master"
   name = "github.com/tscolari/lagregator"
   packages = ["."]
   revision = "b0fb43b018612a8bd982718843b52dac263a21a8"
@@ -547,7 +534,6 @@
   version = "v1.0.0"
 
 [[projects]]
-  branch = "master"
   name = "github.com/vishvananda/netns"
   packages = ["."]
   revision = "be1fbeda19366dea804f00efff2dd73a1642fdcc"
@@ -585,13 +571,12 @@
   revision = "1d60e4601c6fd243af51cc01ddf169918a5407ca"
 
 [[projects]]
-  branch = "master"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows"
   ]
-  revision = "88eb85aaee56831ad49eaf7aa80d73de9814cde2"
+  revision = "c11f84a56e43e20a78cee75a7c034031ecf57d1f"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -673,6 +658,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "7314bd01b71e2a2913c8f1979f320cd6f0ca75f48b4b6699ca0a0f141112d6ef"
+  inputs-digest = "b53ff82e3579d09269e0af628ee244a494f466c1496f3cae63d74f1cf0cc2370"
   solver-name = "gps-cdcl"
   solver-version = 1
