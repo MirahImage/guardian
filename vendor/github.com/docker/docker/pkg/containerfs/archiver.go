@@ -6,7 +6,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"time"
 
 	"github.com/docker/docker/pkg/archive"
 	"github.com/docker/docker/pkg/idtools"
@@ -139,10 +138,6 @@ func (archiver *Archiver) CopyFileWithTar(src, dst string) (err error) {
 			if err != nil {
 				return err
 			}
-			hdr.Format = tar.FormatPAX
-			hdr.ModTime = hdr.ModTime.Truncate(time.Second)
-			hdr.AccessTime = time.Time{}
-			hdr.ChangeTime = time.Time{}
 			hdr.Name = dstDriver.Base(dst)
 			if dstDriver.OS() == "windows" {
 				hdr.Mode = int64(chmodTarEntry(os.FileMode(hdr.Mode)))

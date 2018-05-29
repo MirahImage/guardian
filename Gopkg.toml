@@ -78,8 +78,12 @@ ignored = ["code.cloudfoundry.org/garden-shed*"]
   name = "github.com/containerd/containerd"
   version = "1.1.0"
 
+# TODO: We are using the revision below because moby's latest tag is form last year
+# for some reason. The revision references the project state before they bumped to
+# golang 1.10. This was causing build failures for guardian on golang 1.9.6.
+# Maybe revise after we bump to go 1.10
 [[constraint]]
-  branch = "master"
+  revision = "05346355dbd4300a21bfd64cda93ea6c5aef0cf0"
   name = "github.com/docker/docker"
 
 [[constraint]]

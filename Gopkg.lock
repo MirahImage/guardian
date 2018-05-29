@@ -234,7 +234,6 @@
   revision = "f6943554a7e7e88b3c14aad190bf05932da84788"
 
 [[projects]]
-  branch = "master"
   name = "github.com/docker/docker"
   packages = [
     "api/types",
@@ -270,7 +269,7 @@
     "pkg/system",
     "plugin/v2"
   ]
-  revision = "bbca556a80b43ebd8383048bac03d49ac182e1a4"
+  revision = "05346355dbd4300a21bfd64cda93ea6c5aef0cf0"
 
 [[projects]]
   name = "github.com/docker/go-connections"
@@ -674,6 +673,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "2a7c665fee6b276a7d33f070d425f706b1651c37f05bb643f63d6b7da7637200"
+  inputs-digest = "7314bd01b71e2a2913c8f1979f320cd6f0ca75f48b4b6699ca0a0f141112d6ef"
   solver-name = "gps-cdcl"
   solver-version = 1
