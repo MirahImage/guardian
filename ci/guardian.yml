@@ -12,6 +12,10 @@ inputs:
   path: src/code.cloudfoundry.org/guardian
 - name: grootfs
   path: src/code.cloudfoundry.org/grootfs
+- name: runc
+  path: src/github.com/opencontainers/runc
+- name: containerd
+  path: src/github.com/containerd/containerd
 
 caches:
 - path: guardian/bin

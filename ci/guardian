@@ -11,12 +11,10 @@ export PATH=$GOROOT/bin:$PATH
 export GOPATH=$PWD
 export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 
-go get github.com/opencontainers/runc
 go install -tags "seccomp apparmor" --ldflags '-extldflags "-static"' github.com/opencontainers/runc
 
-go get github.com/containerd/containerd
 pushd src/github.com/containerd/containerd
-BUILDTAGS=no_btrfs make && make install
+  BUILDTAGS=no_btrfs make && make install
 popd
 
 # Set up AppArmor

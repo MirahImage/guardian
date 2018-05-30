@@ -8,4 +8,9 @@ fi
 build_yml=$1
 shift
 
-fly --target "$GARDEN_REMOTE_ATC_URL" e $tag -p -i guardian=$GOPATH/src/code.cloudfoundry.org/guardian -i grootfs=$GOPATH/src/code.cloudfoundry.org/grootfs -c "$build_yml" "$@"
+fly --target "$GARDEN_REMOTE_ATC_URL" e $tag -p \
+  -i guardian=$HOME/workspace/garden-runc-release/src/code.cloudfoundry.org/guardian \
+  -i grootfs=$HOME/workspace/garden-runc-release/src/code.cloudfoundry.org/grootfs \
+  -i runc=$HOME/workspace/garden-runc-release/src/github.com/opencontainers/runc \
+  -i containerd=$HOME/workspace/garden-runc-release/src/github.com/containerd/containerd \
+  -c "$build_yml" "$@"
