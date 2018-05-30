@@ -14,6 +14,10 @@ export PATH=$HOME/go/bin:$GOPATH/bin:$PATH
 go install -tags "seccomp apparmor" --ldflags '-extldflags "-static"' github.com/opencontainers/runc
 
 pushd src/github.com/containerd/containerd
+  git init &&  git config user.name 'Nerd' && git config user.email 'nerd@containerd.gate'
+  git add . && git commit \
+    -m "Containerd's Makefile expects a git repo, but fly execute ignnores .git by default"
+
   BUILDTAGS=no_btrfs make && make install
 popd
 
