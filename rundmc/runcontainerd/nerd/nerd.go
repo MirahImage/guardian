@@ -8,9 +8,11 @@ import (
 	"strconv"
 	"syscall"
 
+	"code.cloudfoundry.org/garden"
 	"code.cloudfoundry.org/lager"
 	"github.com/containerd/containerd"
 	"github.com/containerd/containerd/cio"
+	"github.com/containerd/containerd/containers"
 	"github.com/containerd/containerd/linux/runctypes"
 	specs "github.com/opencontainers/runtime-spec/specs-go"
 )
@@ -190,4 +192,20 @@ func (n *Nerd) Signal(log lager.Logger, containerID, processID string, signal sy
 	}
 
 	return process.Kill(n.context, signal)
+}
+
+func (n *Nerd) UpdateLimits(log lager.Logger, containerID string, limits garden.Limits) error {
+	log.Debug("updating-container-limits", lager.Data{"containerID": containerID, "limits": limits})
+	container, _, err := n.loadContainerAndTask(log, containerID)
+	if err != nil {
+		return err
+	}
+
+	return container.Update(n.context, withLimits(limits))
+}
+
+func withLimits(limits garden.Limits) containerd.UpdateContainerOpts {
+	return func(ctx context.Context, client *containerd.Client, c *containers.Container) error {
+		return nil
+	}
 }
