@@ -95,6 +95,9 @@ func (h *hijackable) Hijack(handler string, body io.Reader, params rata.Params, 
 func (c *hijackable) Stream(handler string, body io.Reader, params rata.Params, query url.Values, contentType string) (io.ReadCloser, error) {
 	request, err := c.req.CreateRequest(handler, params, body)
 	if err != nil {
+		if true {
+			panic("99")
+		}
 		return nil, err
 	}
 
@@ -108,6 +111,9 @@ func (c *hijackable) Stream(handler string, body io.Reader, params rata.Params, 
 
 	httpResp, err := c.noKeepaliveClient.Do(request)
 	if err != nil {
+		if true {
+			panic("115")
+		}
 		return nil, err
 	}
 
@@ -115,8 +121,19 @@ func (c *hijackable) Stream(handler string, body io.Reader, params rata.Params, 
 		defer httpResp.Body.Close()
 
 		var result garden.Error
-		err := json.NewDecoder(httpResp.Body).Decode(&result)
+		b, err := ioutil.ReadAll(httpResp.Body)
 		if err != nil {
+			panic("126 " + err.Error())
+		}
+		if true {
+			panic("129 " + string(b))
+		}
+		err = json.NewDecoder(httpResp.Body).Decode(&result)
+		if err != nil {
+			if true {
+				panic("134")
+			}
+
 			return nil, fmt.Errorf("bad response: %s", err)
 		}
 

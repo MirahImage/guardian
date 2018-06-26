@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net"
 	"net/url"
 	"strings"
@@ -65,6 +66,7 @@ type Connection interface {
 
 	Metrics(handle string) (garden.Metrics, error)
 	RemoveProperty(handle string, name string) error
+	UpdateLimits(handle string, limits garden.Limits) error
 }
 
 //go:generate counterfeiter . HijackStreamer
@@ -133,6 +135,19 @@ func (c *connection) Create(spec garden.ContainerSpec) (string, error) {
 	}
 
 	return res.Handle, nil
+}
+
+func (c *connection) UpdateLimits(handle string, limits garden.Limits) error {
+	limitsBytes, err := json.Marshal(limits)
+	if err != nil {
+		return err
+	}
+
+	return c.do(routes.UpdateLimits,
+		map[string]string{"limits": string(limitsBytes)},
+		&struct{}{},
+		rata.Params{"handle": handle},
+		nil)
 }
 
 func (c *connection) Stop(handle string, kill bool) error {
@@ -573,6 +588,9 @@ func (c *connection) do(
 
 		err := transport.WriteMessage(buf, req)
 		if err != nil {
+			if true {
+				panic("583: " + err.Error())
+			}
 			return err
 		}
 
@@ -592,10 +610,25 @@ func (c *connection) do(
 		contentType,
 	)
 	if err != nil {
+		if true {
+			panic("605: " + err.Error())
+		}
 		return err
 	}
 
 	defer response.Close()
 
-	return json.NewDecoder(response).Decode(res)
+	if handler == routes.UpdateLimits {
+		resp, err := ioutil.ReadAll(response)
+		if err != nil {
+			panic(err.Error())
+		}
+		panic(string(resp))
+	}
+	err = json.NewDecoder(response).Decode(res)
+	if err != nil {
+		panic("621: " + err.Error())
+	}
+
+	return err
 }
