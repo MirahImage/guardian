@@ -13,6 +13,7 @@ import (
 
 	"code.cloudfoundry.org/clock"
 	"code.cloudfoundry.org/commandrunner"
+	"code.cloudfoundry.org/garden"
 	"code.cloudfoundry.org/garden/server"
 	"code.cloudfoundry.org/guardian/bindata"
 	"code.cloudfoundry.org/guardian/gardener"
@@ -23,6 +24,7 @@ import (
 	"code.cloudfoundry.org/guardian/kawasaki/mtu"
 	"code.cloudfoundry.org/guardian/kawasaki/ports"
 	"code.cloudfoundry.org/guardian/kawasaki/subnets"
+	"code.cloudfoundry.org/guardian/kubener"
 	"code.cloudfoundry.org/guardian/logging"
 	"code.cloudfoundry.org/guardian/metrics"
 	"code.cloudfoundry.org/guardian/netplugin"
@@ -472,23 +474,30 @@ func (cmd *ServerCommand) Run(signals <-chan os.Signal, ready chan<- struct{}) e
 		return err
 	}
 
-	backend := &gardener.Gardener{
-		UidGenerator:    wireUIDGenerator(),
-		BulkStarter:     bulkStarter,
-		SysInfoProvider: sysinfo.NewResourcesProvider(cmd.Containers.Dir),
-		Networker:       networker,
-		Volumizer:       volumizer,
-		Containerizer:   containerizer,
-		PropertyManager: propManager,
-		MaxContainers:   cmd.Limits.MaxContainers,
-		Restorer:        restorer,
-		PeaCleaner:      peaCleaner,
+	var backend garden.Backend
+	if cmd.Kube.UseKube {
+		backend = &kubener.Kubener{
+			Logger: logger,
+		}
+	} else {
+		backend = &gardener.Gardener{
+			UidGenerator:    wireUIDGenerator(),
+			BulkStarter:     bulkStarter,
+			SysInfoProvider: sysinfo.NewResourcesProvider(cmd.Containers.Dir),
+			Networker:       networker,
+			Volumizer:       volumizer,
+			Containerizer:   containerizer,
+			PropertyManager: propManager,
+			MaxContainers:   cmd.Limits.MaxContainers,
+			Restorer:        restorer,
+			PeaCleaner:      peaCleaner,
 
-		// We want to be able to disable privileged containers independently of
-		// whether or not gdn is running as root.
-		AllowPrivilgedContainers: !cmd.Containers.DisablePrivilgedContainers,
+			// We want to be able to disable privileged containers independently of
+			// whether or not gdn is running as root.
+			AllowPrivilgedContainers: !cmd.Containers.DisablePrivilgedContainers,
 
-		Logger: logger,
+			Logger: logger,
+		}
 	}
 
 	var listenNetwork, listenAddr string
