@@ -23,6 +23,7 @@ import (
 	"code.cloudfoundry.org/guardian/rundmc/processes"
 	"code.cloudfoundry.org/guardian/rundmc/runcontainerd"
 	"code.cloudfoundry.org/guardian/rundmc/runcontainerd/nerd"
+	"code.cloudfoundry.org/guardian/rundmc/runkube"
 	"code.cloudfoundry.org/guardian/rundmc/runrunc"
 	"code.cloudfoundry.org/guardian/rundmc/signals"
 	"code.cloudfoundry.org/guardian/rundmc/users"
@@ -225,6 +226,10 @@ func wireMounts() bundlerules.Mounts {
 			return mount.GetMounts()
 		},
 	}
+}
+
+func wireKube() (rundmc.OCIRuntime, error) {
+	return runkube.New(), nil
 }
 
 func wireContainerd(socket string, bndlLoader *goci.BndlLoader, processBuilder *processes.ProcBuilder, userLookupper users.UserLookupper, wireExecer func(pidGetter runrunc.PidGetter) *runrunc.Execer, statser runcontainerd.Statser, useContainerdForProcesses bool) (rundmc.OCIRuntime, peas.PidGetter, error) {

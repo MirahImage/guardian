@@ -285,6 +285,10 @@ type ServerCommand struct {
 		Socket                    string `long:"containerd-socket" description:"Path to a containerd socket."`
 		UseContainerdForProcesses bool   `long:"use-containerd-for-processes" description:"Use containerd to run processes in containers."`
 	} `group:"Containerd"`
+
+	Kube struct {
+		UseKube bool `long:"use-kube" description:"Use kube!"`
+	} `group:"Kube"`
 }
 
 func init() {
@@ -876,7 +880,9 @@ func (cmd *ServerCommand) wireContainerizer(log lager.Logger, factory GardenFact
 
 	statser := runrunc.NewStatser(runcLogRunner, runcBinary)
 
-	if cmd.useContainerd() {
+	if cmd.Kube.UseKube {
+		runner, _ = wireKube()
+	} else if cmd.useContainerd() {
 		var err error
 		runner, pidGetter, err = wireContainerd(cmd.Containerd.Socket, bndlLoader, processBuilder, userLookupper, wireExecerFunc, statser, cmd.Containerd.UseContainerdForProcesses)
 		if err != nil {
